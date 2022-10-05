@@ -1,0 +1,31 @@
+#You have to import a module from flask called flash
+
+from flask import flash
+
+
+
+
+#putting the flash fuction after the form submission
+
+@app.route('/name', methods=['GET', 'POST'])
+def name():
+    name = None
+    form = NameForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        form.name.data = ''
+        flash('FOrm submitted successfully')
+    return render_template('name.html', 
+                            name = name,
+                            form = form)
+                            
+                            
+                            
+                            
+                            
+                            
+#Insert this code in the html file
+
+{% for message in get_flashed_messages() %}
+    <p> {{message}} {{name}} </p>
+{% endfor %}
